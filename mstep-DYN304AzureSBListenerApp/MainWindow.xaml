@@ -1,0 +1,73 @@
+﻿<Window x:Class="mstep_DYN304AzureSBListenerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mstep_DYN304AzureSBListenerApp"
+        mc:Ignorable="d"
+        Title="既存の企業マスターシステム側リスナー アプリケーション Demo" Height="600" Width="950">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="Blue"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Style.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="20"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Grid.Resources>
+    <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" >
+                <TextBlock Foreground="White">
+                    Dynamics CRM からのメッセージ<LineBreak/>
+                    （Azure Service Bus 経由）
+                </TextBlock>
+            </Border>
+            <ScrollViewer x:Name="MySV" Grid.Row="1" VerticalAlignment="Stretch" Background="Black">
+                <TextBlock x:Name="MyRawMessageTB" Foreground="White"/>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="160"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0">
+                <TextBlock Text="メッセージのリスト" />
+            </Border>
+            <DataGrid Grid.Row="1" x:Name="MyDataGrid" SelectionMode="Single" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="MyDataGrid_SelectionChanged">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontSize" Value="20"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="FontSize" Value="20"/>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+            <Border Grid.Row="2">
+                <TextBlock Text="メッセージの詳細"/>
+            </Border>
+            <TextBlock Grid.Row="3" x:Name="MyFormattedMessageFromCRMTB"/>
+        </Grid>
+    </Grid>
+</Window>
